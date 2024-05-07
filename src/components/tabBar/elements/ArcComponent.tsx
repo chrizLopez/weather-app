@@ -9,6 +9,7 @@ interface ArcComponentProps {
 
 const ArcComponent = ({height, width}: ArcComponentProps) => {
   const arcPath = `M 0 0 Q ${width / 2} ${height / 2} ${width} 0 L ${width} ${height} L 0 ${height} Z`;
+  // const arcPath = '';
   const arcBorder = `M 0 0 Q ${width / 2} ${height / 2} ${width} 0`;
   return (
     <Canvas style={{height: height, ...StyleSheet.absoluteFillObject}}>

@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import { Forecast } from '../../models/Weather'
+import { Forecast, ForecastType } from '../../models/Weather'
 import { Canvas, RoundedRect, Shadow } from '@shopify/react-native-skia';
 import { DEGREE_SYMBOL } from '../../utils/Constants';
-import { convertDate12HrFormat } from '../../utils/DateHelper';
+import { convertDate12HrFormat, getDayOfWeek } from '../../utils/DateHelper';
 
 interface ForeacastCapsuleProps {
   forecast: Forecast;
@@ -18,9 +18,22 @@ const ForeacastCapsule = ({
   height,
   radius
 }: ForeacastCapsuleProps) => {
-  const {date, icon, probability, temperature} = forecast;
-  const timeToDisplay = convertDate12HrFormat(date);
-  const capsuleOpacity = timeToDisplay.toLowerCase() === 'now' ? 1 : 0.2;
+  const {date, icon, probability, temperature, type} = forecast;
+  const timeDateOpacityDisplay = ():[string, number] => {
+    let opacity = 1;
+    let timeOrDay = '';
+    if (type === ForecastType.Hourly) {
+      timeOrDay = convertDate12HrFormat(date);
+      opacity = timeOrDay.toLowerCase() === 'now' ? 1 : 0.2;
+    } else {
+      const [dayOfTheWeek, isToday] = getDayOfWeek(date);
+      timeOrDay = dayOfTheWeek;
+      opacity = isToday ? 1 : 0.2;
+    }
+    return [timeOrDay, opacity];
+  }
+  const [timeToDisplay, capsuleOpacity] = timeDateOpacityDisplay();
+
   return (
     <View style={{width: width, height: height}}>
       <Canvas style={{...StyleSheet.absoluteFillObject}}>
