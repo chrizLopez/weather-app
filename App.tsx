@@ -8,6 +8,7 @@ import { useFonts } from 'expo-font';
 import { useCallback } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ForecastSheet from './src/components/sheets/ForecastSheet';
+import Home from './src/screens/Home';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,10 +31,7 @@ export default function App() {
   return (
     <SafeAreaProvider onLayout={onLayoutRootView}>
       <GestureHandlerRootView style={{flex: 1}}>
-        <HomeBackground />
-        <WeatherInfo weather={currentWeather} />
-        <ForecastSheet />
-        <WeatherTabBar />
+        <Home />
       </GestureHandlerRootView>
     </SafeAreaProvider>
   );
