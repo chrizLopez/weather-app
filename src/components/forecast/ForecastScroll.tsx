@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Forecast } from '../../models/Weather';
 import { ScrollView } from 'react-native-gesture-handler';
-import ForeacastCapsule from './ForeacastCapsule';
+import ForeacastCapsule from './ForecastCapsule';
 
 interface ForecastScrollProps {
   forecasts: Forecast[];
